@@ -29,9 +29,9 @@ Vagrant.configure("2") do |config|
           sudo sed -i 's:^PasswordAuthentication no:PasswordAuthentication yes:' /etc/ssh/sshd_config
           sudo sed -i 's:^#PasswordAuthentication yes:PasswordAuthentication yes:' /etc/ssh/sshd_config
           sudo systemctl reload sshd
-          sudo mkdir /home/student/.ssh && sudo chown student:student /home/student/.ssh && sudo chmod 700 /home/student/.ssh
-          cat /vagrant/id_rsa.pub | sudo tee /home/student/.ssh/authorized_keys
-          sudo cp /vagrant/id_rsa /vagrant/id_rsa.pub /home/student/.ssh && sudo chown student:student /home/student/.ssh/id_rsa /home/student/.ssh/id_rsa.pub /home/student/.ssh/authorized_keys && sudo chmod 600 /home/student/.ssh/id_rsa /home/student/.ssh/authorized_keys
+          sudo mkdir /{root,home/student}/.ssh && sudo chown student:student /home/student/.ssh && sudo chmod 700 /{root,home/student}/.ssh
+          cat /vagrant/id_rsa.pub | sudo tee /{root,home/student}/.ssh/authorized_keys
+          sudo cp /vagrant/id_rsa /vagrant/id_rsa.pub /home/student/.ssh && sudo cp /vagrant/id_rsa /vagrant/id_rsa.pub /root/.ssh && sudo chown student:student /home/student/.ssh/id_rsa /home/student/.ssh/id_rsa.pub /home/student/.ssh/authorized_keys && sudo chmod 600 /{root,home/student}/.ssh/id_rsa /home/student/.ssh/authorized_keys
           SHELL
         box.vm.provision "shell", path: boxconfig[:script]
     end
